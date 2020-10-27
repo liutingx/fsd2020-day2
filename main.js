@@ -25,14 +25,23 @@ app.use(
     }
 )
 
+//random a number from 1-6
+function randomNum(){
+    ranNum=Math.floor(Math.random()*6)+1
+    return ranNum
+}
+
+//run when get /roll is called
 app.get('/roll',
     (req, resp) => {
         resp.status(200)
         resp.type('text/html')
+        let random1 = randomNum()
+        let random2 = randomNum()
         resp.render('dice',
             {
-                randomDice: '/images/roll2.png',
-                randomDice2: '/images/four.png'
+                randomDice: '/images/' + random1 + '.png',
+                randomDice2: '/images/' + random2 + '.png'
             }
         )
     }
@@ -40,13 +49,14 @@ app.get('/roll',
 
 //configure express
 //serve HTMLs from the public directory, __dirname is the directory of this file
+
 app.use(express.static(__dirname + '/public'))
 
-//
-app.use((req, resp) => {
-    resp.status(404)
-    resp.type('text/html')
-    resp.sendFile(__dirname + '/public')
+app.use(
+    (req, resp) => {
+        resp.status(200)
+        resp.type('text/html')
+        resp.redirect('/')
     }
 )
 
