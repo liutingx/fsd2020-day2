@@ -30,7 +30,11 @@ function randomNum(){
     ranNum=Math.floor(Math.random()*6)+1
     return ranNum
 }
+/*OR
+const ranNum = () => Math.floor(Math.random()*6)+1
+*/
 
+//configure express
 //run when get /roll is called
 app.get('/roll',
     (req, resp) => {
@@ -47,9 +51,8 @@ app.get('/roll',
     }
 )
 
-//configure express
 //serve HTMLs from the public directory, __dirname is the directory of this file
-
+//load/mount the static directory (express does not get files from directory automatically) /public because it is the root
 app.use(express.static(__dirname + '/public'))
 
 app.use(
